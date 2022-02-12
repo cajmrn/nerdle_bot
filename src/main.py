@@ -9,9 +9,7 @@ if __name__ == '__main__':
 
     etp = EnvTokenProvider()
     etp.register()
-    
+
     na = NerdleAgent()
     na.run(etp.get_token())
-
-
 
