@@ -1,0 +1,5 @@
+dvc
+numpy
+scipy
+requests
+discord

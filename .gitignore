@@ -1,0 +1,10 @@
+# compiled cache files
+__pycache__
+*.pyc
+
+# ide config files 
+.idea/
+.vscode/
+
+# python install egg info
+*.egg-info
