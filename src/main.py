@@ -1,10 +1,17 @@
 from src.agent.nerdle_agent import NerdleAgent
+from src.agent.EnvTokenProvider import EnvTokenProvider
+
+import definitions as d
 import os
 
-na = NerdleAgent()
-#never forget to remove token before uploading
-#Safety Jim will be pissed! and reset the token.
-na.run('')
+
+if __name__ == '__main__':
+
+    etp = EnvTokenProvider()
+    etp.register()
+    
+    na = NerdleAgent()
+    na.run(etp.get_token())
 
 
 

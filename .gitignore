@@ -8,3 +8,7 @@ __pycache__
 
 # python install egg info
 *.egg-info
+
+# password setting file
+setup_env.py
+*.env

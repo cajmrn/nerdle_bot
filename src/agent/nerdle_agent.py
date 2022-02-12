@@ -17,4 +17,5 @@ class NerdleAgent(discord.Client):
             
         if message.content.startswith('$nerdle'):
             await message.channel.send(self.get_response())
+
     
