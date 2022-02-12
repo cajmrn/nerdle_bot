@@ -1,7 +1,10 @@
 from src.agent.nerdle_agent import NerdleAgent
+import os
 
 na = NerdleAgent()
-na.run('OTQxNzQ5NDU5MTk5NjE1MDk3.Ygaehw.Aj8qstnOVD4nWa26TxJX8-zv7KQ')
+#never forget to remove token before uploading
+#Safety Jim will be pissed! and reset the token.
+na.run('')
 
 
 
