@@ -28,3 +28,10 @@ create a .env file at root and place the token in there as follows
 NERDLE_TOKEN=<YOUR TOKEN GOES HERE>
 ```
 they use python-dotenv to interact with the token.
+
+# TODO currently
+-[] create interfaces for a possible game orchestrator
+    orchestrator needs to keep track of state of the game, guesses and responses.
+-[] algorithm for generation of equation.
+-[] aglorithm for sequencing / indexing / selection of responses.
+-[] algorithm for comparison of guess with solution.

@@ -3,9 +3,10 @@ import traceback
 
 
 class TestAgent(discord.Client):
-    def __init__(self, evaluator, responder):
+    def __init__(self, evaluator, responder, *args, **kwargs):
         self._evaluator= evaluator
         self._responder = responder
+        super().__init__(*args, **kwargs)
 
     def get_response(self) -> str:
         try:
@@ -30,4 +31,4 @@ class TestAgent(discord.Client):
 
         if message.content.startswith('$cast'):
             _tokenized = message.content.split()
-            await message.channel.send('you replied: ', _tokenized[1:])
+            await message.channel.send(f'you casted:  {_tokenized[1:]}')
