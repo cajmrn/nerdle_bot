@@ -2,8 +2,7 @@ from abc import ABCMeta, abstractmethod
 
 
 class IResponder(metaclass=ABCMeta):
-    def __init__(self, evaluation, library):
-        self._evaluation = evaluation
+    def __init__(self, library):
         self._library = library
 
     @abstractmethod
