@@ -11,5 +11,6 @@ if __name__ == '__main__':
     etp.register()
 
     na = NerdleAgent()
+    
     na.run(etp.get_token())
 
