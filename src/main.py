@@ -1,4 +1,5 @@
 from src.agent.nerdle_agent import NerdleAgent
+from src.agent.test_agent import TestAgent
 from src.agent.EnvTokenProvider import EnvTokenProvider
 from src.server.generators.SimpleEquationGenerator import SimpleEquationGenerator
 from src.server.evaluators.LooseEvaluator import LooseEvaluator
@@ -18,19 +19,22 @@ if __name__ == '__main__':
     an_eq = seg.generate()
 
     le = LooseEvaluator(an_eq)
-    #will need to figure out how to get the guess from nerdleagent probable if it has a prefix of $cast
-    score = le.evaluate('')
+    # #will need to figure out how to get the guess from nerdleagent probable if it has a prefix of $cast
+    # score = le.evaluate('')
 
-    #instantiate a library to get all repsonses. 
+    # #instantiate a library to get all repsonses. 
     responses = library._library
 
     nr = NerdleResponder(responses)
-    nerdle_resposne = nr.get_response(score)
+    # nerdle_resposne = nr.get_response(score)
 
     etp = EnvTokenProvider()
     etp.register()
 
-    na = NerdleAgent()
+    # na = NerdleAgent()
     
-    na.run(etp.get_token())
+    # na.run(etp.get_token())
+
+    ta = TestAgent(le, nr)
+    ta.run(etp.get_token())
 

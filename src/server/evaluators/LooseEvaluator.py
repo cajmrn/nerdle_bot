@@ -9,6 +9,9 @@ class LooseEvaluator(IEvaluator):
     def __init__(self, solution):
         super(LooseEvaluator, self).__init__(solution=None)
 
+    def get_solution(self):
+        return self._solution
+
     def evaluate(self, guess):
         '''
         evaluates the guess against the solution.

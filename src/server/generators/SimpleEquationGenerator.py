@@ -8,7 +8,7 @@ class SimpleEquationGenerator(IGenerator):
     SimpleEquationGenerator is a generator that has an easier disposition.
     the intention is to be able to create multiple generators for variable difficulty dispositions.
     '''
-    def __init__(self, mask):
+    def __init__(self, mask=None):
         super(SimpleEquationGenerator, self).__init__(mask)
         self._equation = []
 
