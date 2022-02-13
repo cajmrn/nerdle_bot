@@ -30,5 +30,4 @@ class TestAgent(discord.Client):
             await message.channel.send(self.lets_play())
 
         if message.content.startswith('$cast'):
-            _tokenized = message.content.split()
-            await message.channel.send(f'you casted:  {_tokenized[1:]}')
+            await message.channel.send(f':green_square: :green_square: :black_large_square: :purple_square:')
