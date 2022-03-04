@@ -31,7 +31,7 @@ class MikeDBTestCase(unittest.TestCase):
         rr = db.get(key='test-key-1')
 
         self.assertEqual(r['id'], rr[0]['id'])
-        # NOTE! 'add' always create a list, even for a single item. For basic DB operation use 'update' instead.
+        # NOTE! 'add' always create a list, even for a single item! For basic DB operation use 'update' instead.
 
     def test_db_add_list(self):
         db = MikeDB(db_host=DB_CONFIG['DB_HOST'], db_name=DB_CONFIG['DB_NAME'], db_key=DB_CONFIG['DB_KEY'])
