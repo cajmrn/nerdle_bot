@@ -6,7 +6,6 @@ from src.server.db.MikeDB import MikeDB
 
 class MikeDBTestCase(unittest.TestCase):
     def test_config(self):
-        # db = MikeDB(DB_CONFIG.DB_HOST, DB_CONFIG.DB_NAME, DB_CONFIG.DB_KEY)
         self.assertEqual(DB_CONFIG['DB_HOST'], 'gerdov.com')
         self.assertEqual(DB_CONFIG['DB_NAME'], 'nerdleDB')
         self.assertEqual(DB_CONFIG['DB_KEY'], 'NRDL3cr3tK3y')
@@ -26,10 +25,12 @@ class MikeDBTestCase(unittest.TestCase):
         r = db.add(key='test-key-1', value=value)
 
         self.assertIsNotNone(r)
+        # NOTE! See how original 'value' object had no 'id' field, but once it is added to DB, the unique ID is generated and added to the object.
         self.assertGreater(r['id'], 0)
 
         rr = db.get(key='test-key-1')
 
+        # NOTE! 'add' always create a list, even for a single item! For basic DB operation use 'update' instead.
         self.assertEqual(r['id'], rr[0]['id'])
         # NOTE! 'add' always create a list, even for a single item! For basic DB operation use 'update' instead.
 
@@ -59,7 +60,7 @@ class MikeDBTestCase(unittest.TestCase):
         value1 = {'name': 'Ian', 'age': 69, 'sex': True}
         value2 = {'name': 'Carlo', 'age': 420, 'sex': False}
         value3 = {'name': 'Mike', 'age': 0, 'sex': None}
-        db.add(key='test-key-3', value=[value1, value2, value3])
+        db.update(key='test-key-3', value=[value1, value2, value3])
 
         r = db.get(key='test-key-3')
 
