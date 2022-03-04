@@ -20,6 +20,6 @@ class LooseEvaluator(IEvaluator):
             def get_response(self):
                 return self.library[self._evaluation]
         '''
-        print(f'your guess was {guess} and the solution is {self._solution}')
+        print('your guess was {guess} and the solution is {self._solution}')
         
         return 1
