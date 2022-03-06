@@ -8,12 +8,8 @@ class IEvaluator(metaclass=ABCMeta):
         self._solution = solution
 
     @abstractmethod
-    def get_id(self):
+    def set_solution(self):
         raise NotImplementedError()
-
-    @abstractmethod
-    def get_solution(self):
-        raise NotImplementedError
 
     @abstractmethod
     def evaluate(self, guess):
