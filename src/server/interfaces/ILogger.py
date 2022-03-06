@@ -2,14 +2,15 @@ from abc import ABCMeta, abstractmethod
 
 
 class ILogger(metaclass=ABCMeta):
-    def __init__(self, src, dest):
+    def __init__(self, id, src, dest):
+        self._id = id
         self._src = src
         self._dest = dest
 
     @abstractmethod
-    def fromat(self):
+    def format(self, s):
         raise NotImplementedError()   
 
     @abstractmethod
-    def log(self):
+    def log(self, msg):
         raise NotImplementedError()

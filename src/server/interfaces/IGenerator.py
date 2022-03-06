@@ -2,7 +2,8 @@ from abc import ABCMeta, abstractmethod
 
 
 class IGenerator(metaclass=ABCMeta):
-    def __init__(self, mask, logger):
+    def __init__(self, id, mask, logger):
+        self._id = id
         self._logger = logger
         self._mask = mask
 
@@ -11,7 +12,7 @@ class IGenerator(metaclass=ABCMeta):
     def generate(self):
         raise NotImplementedError()
     
-    @abstractmethod
-    def log(self):
-        raise NotImplementedError()
+    # @abstractmethod
+    # def log(self):
+    #     raise NotImplementedError()
         

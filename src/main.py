@@ -1,10 +1,12 @@
 from http.client import responses
-from src.agent.nerdle_agent import NerdleAgent
-from src.agent.test_agent import TestAgent
-from src.agent.EnvTokenProvider import EnvTokenProvider
+# from src.agent.nerdle_agent import NerdleAgent
+# from src.agent.test_agent import TestAgent
+# from src.agent.EnvTokenProvider import EnvTokenProvider
 from src.server.generators.SimpleEquationGenerator import SimpleEquationGenerator
-from src.server.evaluators.LooseEvaluator import LooseEvaluator
-from src.server.responders.NerdleResponder import NerdleResponder
+# from src.server.evaluators.LooseEvaluator import LooseEvaluator
+from src.server.loggers.GeneratorLogger import GeneratorLogger
+from src.server.orchestrators.NerdleOrchestrator import NerdleOrchestrator
+# from src.server.responders.NerdleResponder import NerdleResponder
 from src.server.responders.library.dcLibrary import library
 from src.server.db.DbConfig import DB_CONFIG
 from src.server.db.MikeDB import MikeDB
@@ -38,12 +40,25 @@ if __name__ == '__main__':
     #lb.add_library(_library)
 
     responses = lb.get_library()
-
-    print(responses)
-
+    # print(responses)
 
     # nr = NerdleResponder(responses)
     # # nerdle_resposne = nr.get_response(score)
+    g_logger = GeneratorLogger(dest=db)
+    se_generator = SimpleEquationGenerator(logger=g_logger)
+    n_orchestrator = NerdleOrchestrator(generator=se_generator)
+
+    game_id = n_orchestrator.generate_id()
+    print(game_id)
+
+    se_generator.set_id(game_id)
+
+    g_logger.set_id(game_id)
+
+    _eq = se_generator.generate()
+    print(_eq)
+
+    print(db.get(key=game_id))
 
     # etp = EnvTokenProvider()
     # etp.register()

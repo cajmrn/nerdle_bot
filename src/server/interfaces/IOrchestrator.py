@@ -4,10 +4,15 @@ from ast import Not
 
 class IOrchestrator(metaclass=ABCMeta):
     def __init__(self, evaluator, generator, responder, logger):
+        self._id = None
         self._logger = logger
         self._evaluator = evaluator
         self._generator = generator
         self._responder = responder
+
+    @abstractmethod
+    def generate_id(self):
+        raise NotImplementedError()
 
     @abstractmethod
     def evaluate(self):

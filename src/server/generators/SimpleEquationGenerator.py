@@ -8,11 +8,13 @@ class SimpleEquationGenerator(IGenerator):
     SimpleEquationGenerator is a generator that has an easier disposition.
     the intention is to be able to create multiple generators for variable difficulty dispositions.
     '''
-    def __init__(self, mask=None, logger=None):
-        super(SimpleEquationGenerator, self).__init__(mask, logger)
+    def __init__(self, id=None,  mask=None, logger=None):
+        super(SimpleEquationGenerator, self).__init__(id, mask, logger)
         self._equation = []
 
-
+    def set_id(self, id):
+        self._id = id
+        
     def generate(self):
         '''
         #DEV THOUGHTS
@@ -23,8 +25,10 @@ class SimpleEquationGenerator(IGenerator):
         '''
         try:
             self._equation = [2,'+',3,'*',4,'=',14]
-            self._logger.log()
+            self._logger.set_source(str(__class__.__name__))
+            self._logger.log(self._logger.format(self._equation))
         except Exception as e:
             traceback.print_exc()
 
         return self._equation
+
