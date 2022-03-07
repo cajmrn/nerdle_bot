@@ -6,6 +6,8 @@ class IEvaluator(metaclass=ABCMeta):
         self._id = id
         self._logger = logger
         self._solution = solution
+        self._guess_set = {}
+        self._point_evaluation = []
 
     @abstractmethod
     def set_solution(self):
@@ -15,8 +17,8 @@ class IEvaluator(metaclass=ABCMeta):
     def evaluate(self, guess):
         raise NotImplementedError()
 
-    @abstractmethod
-    def log(self):
-        raise NotImplementedError()
+    # @abstractmethod
+    # def log(self):
+    #     raise NotImplementedError()
 
         
