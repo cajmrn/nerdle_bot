@@ -8,8 +8,7 @@ class NerdleOrchestrator(IOrchestrator):
     def generate_id(self):
         self._id = ut.generate_uuid()
         return self._id
-
-        
+    
     def evaluate(self):
         return self._evaluator.evaluate()
 

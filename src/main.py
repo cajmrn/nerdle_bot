@@ -6,6 +6,8 @@ from src.server.generators.SimpleEquationGenerator import SimpleEquationGenerato
 from src.server.evaluators.LooseEvaluator import LooseEvaluator
 from src.server.loggers.GeneratorLogger import GeneratorLogger
 from src.server.orchestrators.NerdleOrchestrator import NerdleOrchestrator
+from src.server.transcribers.DiscordTranscriber import DiscordTranscriber
+from src.server.transcribers.vocabulary.dcVocabulary import vocabulary
 # from src.server.responders.NerdleResponder import NerdleResponder
 from src.server.responders.library.dcLibrary import library
 from src.server.db.DbConfig import DB_CONFIG
@@ -20,8 +22,8 @@ Currently just using main for testing.
 '''
 if __name__ == '__main__':
 
-    # #seg = SimpleEquationGenerator()
-    # #an_eq = seg.generate()
+    # # #seg = SimpleEquationGenerator()
+    # # #an_eq = seg.generate()
     solution = [1,'+',2,'+',3,'=', 6]
     le = LooseEvaluator(solution=solution)
     guess = [1,'+',2,'+',3,'=', 6]
@@ -32,57 +34,68 @@ if __name__ == '__main__':
     print(f'_sum: {_sum}')
     print(f'eval_set: {eval_set}')
 
-    vocab = {
-        4:"::green_square::"
-        ,2:"::purple_square::"
-        ,1:"::white_square::"
-    }
+    # _vocab = {
+    #     4:"::green_square::"
+    #     ,2:"::purple_square::"
+    #     ,1:"::white_square::"
+    # }
 
-    # # #will need to figure out how to get the guess from nerdleagent probable if it has a prefix of $cast
-    # # score = le.evaluate('')
+    db = MikeDB(db_host=DB_CONFIG['DB_HOST'], db_name=DB_CONFIG['DB_NAME'], db_key=DB_CONFIG['DB_KEY'])
+    vc = vocabulary(db, 'discord_default_squares')
+    # vc.add_vocabulary(_vocab)
 
-    # # #instantiate a library to get all repsonses.
-    # db = MikeDB(db_host=DB_CONFIG['DB_HOST'], db_name=DB_CONFIG['DB_NAME'], db_key=DB_CONFIG['DB_KEY'])
-    # # _library = {
-    # #     0:'That\'s correct you genius motherfucker!'
-    # #     , 1:'Not even close dumbo'
-    # #     , 2:'You are in no way closer to the solution... Idiot!'
-    # #     } 
+    vocab = vc.get_vocabulary()
+    vc.update_entry('1','::white_large_square::')
+    # print(vocab)
+    dc = DiscordTranscriber(vocab=vocab)
+    _transcribed_eval_set = dc.transcribe(eval_set)
+    print(f'_transcribed set: {_transcribed_eval_set}')
 
-    # lb = library(db, 'meanie')
-    # #lb.delete_library()
-    # #lb.add_library(_library)
+    # # # #will need to figure out how to get the guess from nerdleagent probable if it has a prefix of $cast
+    # # # score = le.evaluate('')
 
-    # responses = lb.get_library()
-    # # print(responses)
+    # # # #instantiate a library to get all repsonses.
+    # # db = MikeDB(db_host=DB_CONFIG['DB_HOST'], db_name=DB_CONFIG['DB_NAME'], db_key=DB_CONFIG['DB_KEY'])
+    # # # _library = {
+    # # #     0:'That\'s correct you genius motherfucker!'
+    # # #     , 1:'Not even close dumbo'
+    # # #     , 2:'You are in no way closer to the solution... Idiot!'
+    # # #     } 
 
-    # # nr = NerdleResponder(responses)
-    # # # nerdle_resposne = nr.get_response(score)
-    # g_logger = GeneratorLogger(dest=db)
-    # se_generator = SimpleEquationGenerator(logger=g_logger)
-    # n_orchestrator = NerdleOrchestrator(generator=se_generator)
+    # # lb = library(db, 'meanie')
+    # # #lb.delete_library()
+    # # #lb.add_library(_library)
 
-    # game_id = n_orchestrator.generate_id()
-    # print(game_id)
+    # # responses = lb.get_library()
+    # # # print(responses)
 
-    # se_generator.set_id(game_id)
+    # # # nr = NerdleResponder(responses)
+    # # # # nerdle_resposne = nr.get_response(score)
+    # # g_logger = GeneratorLogger(dest=db)
+    # # se_generator = SimpleEquationGenerator(logger=g_logger)
+    # # n_orchestrator = NerdleOrchestrator(generator=se_generator)
 
-    # g_logger.set_id(game_id)
+    # # game_id = n_orchestrator.generate_id()
+    # # print(game_id)
 
-    # _eq = se_generator.generate()
-    # print(_eq)
+    # # se_generator.set_id(game_id)
 
-    # print(db.get(key=game_id))
+    # # g_logger.set_id(game_id)
 
-    # # etp = EnvTokenProvider()
-    # # etp.register()
+    # # _eq = se_generator.generate()
+    # # print(_eq)
 
-    # # # na = NerdleAgent()
+    # # print(db.get(key=game_id))
+
+    # # # etp = EnvTokenProvider()
+    # # # etp.register()
+
+    # # # # na = NerdleAgent()
     
-    # # # na.run(etp.get_token())
+    # # # # na.run(etp.get_token())
 
-    # # ta = TestAgent(le, nr)
-    # # ta.run(etp.get_token())
+    # # # ta = TestAgent(le, nr)
+    # # # ta.run(etp.get_token())
 
     
 
