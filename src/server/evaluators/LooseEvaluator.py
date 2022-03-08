@@ -13,7 +13,7 @@ class LooseEvaluator(IEvaluator):
     def set_solution(self, s):
         self._solution = s
 
-    def evaluate(self, guess) -> Tuple[int, dict]:
+    def evaluate(self, **generic) -> Tuple[int, dict]:
         '''
         be sure to run set_solution() with the value generated from the generator 
         evaluates the guess against the solution.
@@ -22,7 +22,7 @@ class LooseEvaluator(IEvaluator):
             def get_response(self):
                 return self.library[self._evaluation]
         '''
-        print(f'your guess was {guess} and the solution is {self._solution}')
+        print(f'your guess was {generic} and the solution is {self._solution}')
         '''
         Wondering about this implementation. Not sure if it's working right is seems so
         the implementation is:
@@ -32,7 +32,7 @@ class LooseEvaluator(IEvaluator):
         if the value is not in the solution give a value of 1
         return the sum of the values in the dictionary 
         '''
-
+        guess = generic['guess']
         i= 0
         for i in range(len(guess)):
             for j in range(i, len(self._solution)):

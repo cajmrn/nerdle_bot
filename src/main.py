@@ -21,32 +21,37 @@ import os
 Currently just using main for testing.
 '''
 if __name__ == '__main__':
+    db = MikeDB(db_host=DB_CONFIG['DB_HOST'], db_name=DB_CONFIG['DB_NAME'], db_key=DB_CONFIG['DB_KEY'])
 
-    # # #seg = SimpleEquationGenerator()
-    # # #an_eq = seg.generate()
-    solution = [1,'+',2,'+',3,'=', 6]
-    le = LooseEvaluator(solution=solution)
+    g_logger = GeneratorLogger(dest=db)
+    se_generator = SimpleEquationGenerator(logger=g_logger)
+    le_evaluator = LooseEvaluator()
+    n_orchestrator = NerdleOrchestrator(generator=se_generator, evaluator=le_evaluator)
+
+    game_id = n_orchestrator.generate_id()
+    print(game_id)
+
+    se_generator.set_id(game_id)
+    g_logger.set_id(game_id)
+
+    _eq = n_orchestrator.generate()
+    le_evaluator.set_solution(_eq)
+    print(_eq)
     guess = [1,'+',2,'+',3,'=', 6]
     guess.reverse()
-    print(guess)
-    #_sum , eval_set = le.evaluate([2,'-',7,'/',9,'=', 1])
-    _sum , eval_set = le.evaluate(guess=guess)
+    _sum , eval_set = n_orchestrator.evaluate(guess=guess)
     print(f'_sum: {_sum}')
-    print(f'eval_set: {eval_set}')
+    print(f'eval_set: {eval_set}')    
 
     # _vocab = {
     #     4:"::green_square::"
     #     ,2:"::purple_square::"
     #     ,1:"::white_square::"
     # }
-
-    db = MikeDB(db_host=DB_CONFIG['DB_HOST'], db_name=DB_CONFIG['DB_NAME'], db_key=DB_CONFIG['DB_KEY'])
     vc = vocabulary(db, 'discord_default_squares')
     # vc.add_vocabulary(_vocab)
 
     vocab = vc.get_vocabulary()
-    vc.update_entry('1','::white_large_square::')
-    # print(vocab)
     dc = DiscordTranscriber(vocab=vocab)
     _transcribed_eval_set = dc.transcribe(eval_set)
     print(f'_transcribed set: {_transcribed_eval_set}')

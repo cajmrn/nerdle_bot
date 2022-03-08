@@ -15,7 +15,7 @@ class IOrchestrator(metaclass=ABCMeta):
         raise NotImplementedError()
 
     @abstractmethod
-    def evaluate(self):
+    def evaluate(self, **generic):
         raise NotImplementedError()
 
     @abstractmethod
