@@ -14,6 +14,7 @@ class GuessTranscriber(ITranscriber):
         '''
         evaluation_set = generic['evaluation_set']
         is_generator = generic['is_generator']
+        self._transcribed_set = []
         try: 
             if is_generator:
                 for i in evaluation_set.values():
@@ -21,10 +22,7 @@ class GuessTranscriber(ITranscriber):
             else:
                 for i in evaluation_set.values():
                     self._transcribed_set.append(self._vocab[str(i)])
-
-
-
-                        
+              
             return self._transcribed_set
         except Exception as e: 
             traceback.print_exc()
