@@ -27,8 +27,10 @@ class SimpleEquationGenerator(IGenerator):
             self._equation = [2,'+',3,'*',4,'=',14]
             self._logger.set_source(str(__class__.__name__))
             self._logger.log(self._logger.format(self._equation))
+
+            return self._equation
         except Exception as e:
             traceback.print_exc()
 
-        return self._equation
+        
 

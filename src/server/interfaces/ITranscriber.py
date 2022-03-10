@@ -9,7 +9,7 @@ class ITranscriber(metaclass=ABCMeta):
         self._transcribed_set= []
 
     @abstractmethod
-    def transcribe(self, evalution_set)-> list:
+    def transcribe(self, is_generator, **evalution_set)-> list:
         raise NotImplementedError()
 
     # @abstractmethod

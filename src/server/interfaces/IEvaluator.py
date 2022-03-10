@@ -14,11 +14,10 @@ class IEvaluator(metaclass=ABCMeta):
         raise NotImplementedError()
 
     @abstractmethod
-    def evaluate(self, guess):
+    def evaluate(self, **guess):
         raise NotImplementedError()
 
     # @abstractmethod
     # def log(self):
     #     raise NotImplementedError()
-
         

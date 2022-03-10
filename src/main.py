@@ -6,7 +6,7 @@ from src.server.generators.SimpleEquationGenerator import SimpleEquationGenerato
 from src.server.evaluators.LooseEvaluator import LooseEvaluator
 from src.server.loggers.GeneratorLogger import GeneratorLogger
 from src.server.orchestrators.NerdleOrchestrator import NerdleOrchestrator
-from src.server.transcribers.DiscordTranscriber import DiscordTranscriber
+from src.server.transcribers.GuessTranscriber import GuessTranscriber
 from src.server.transcribers.vocabulary.dcVocabulary import vocabulary
 # from src.server.responders.NerdleResponder import NerdleResponder
 from src.server.responders.library.dcLibrary import library
@@ -26,7 +26,12 @@ if __name__ == '__main__':
     g_logger = GeneratorLogger(dest=db)
     se_generator = SimpleEquationGenerator(logger=g_logger)
     le_evaluator = LooseEvaluator()
-    n_orchestrator = NerdleOrchestrator(generator=se_generator, evaluator=le_evaluator)
+
+    vc = vocabulary(db, 'discord_default_squares')
+    # vc.add_vocabulary(_vocab)
+
+    g_transcriber = GuessTranscriber(vocab=vc.get_vocabulary())
+    n_orchestrator = NerdleOrchestrator(generator=se_generator, evaluator=le_evaluator, transcriber=g_transcriber)
 
     game_id = n_orchestrator.generate_id()
     print(game_id)
@@ -48,12 +53,8 @@ if __name__ == '__main__':
     #     ,2:"::purple_square::"
     #     ,1:"::white_square::"
     # }
-    vc = vocabulary(db, 'discord_default_squares')
-    # vc.add_vocabulary(_vocab)
 
-    vocab = vc.get_vocabulary()
-    dc = DiscordTranscriber(vocab=vocab)
-    _transcribed_eval_set = dc.transcribe(eval_set)
+    _transcribed_eval_set = n_orchestrator.transcribe(is_generator= False, evaluation_set = eval_set)
     print(f'_transcribed set: {_transcribed_eval_set}')
 
     # # # #will need to figure out how to get the guess from nerdleagent probable if it has a prefix of $cast
